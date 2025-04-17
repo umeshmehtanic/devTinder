@@ -1,0 +1,4 @@
+- initialize git
+- gitignore
+- create a git repo on github
+- push all code to remote repo
