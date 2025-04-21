@@ -2,17 +2,30 @@ const express = require('express');
 const app = express();
 
 // Handling the request
-app.get("/",(req,res)=>{
-    res.send("This is server");
+
+app.use("/user", (req, res)=>{
+    res.send("Order Matters ...");
+})
+app.get("/user",(req,res)=>{
+    res.send({FirstName: "Umesh", LastName: "Mehta"});
 });
 
-app.get("/test",(req,res)=>{
-    res.send("Test page");
+app.post("/user", (req,res)=>{
+    res.send("Saved Successfully");
 });
 
-app.get("/hello",(req,res)=>{
-    res.send('Hello Page');
+app.put("/user", (req,res)=>{
+    res.send("Modified Successfully.");
 });
+
+app.delete("/user", (req,res)=>{
+    res.send("Deleted Successfully");
+});
+
+app.patch("/user", (req,res)=>{
+    res.send("Patched Successfully");
+});
+
 
 
 app.listen('7777',()=>{
