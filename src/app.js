@@ -1,32 +1,32 @@
 const express = require('express');
 const app = express();
+const {adminAuth,userAuth} = require('./middleware/auth');
 
-// Handling the request
+app.use('/admin', adminAuth);
 
-app.use("/user", (req, res)=>{
-    res.send("Order Matters ...");
+app.get('/admin/getAllData',(req,res)=>{
+    console.log("all Admin data");
+    res.send("All admin data returned");
 })
-app.get("/user",(req,res)=>{
-    res.send({FirstName: "Umesh", LastName: "Mehta"});
+
+app.get("/user",userAuth, (req, res,next)=>{
+    next();
+    //res.send("First Response");
+},
+[(req, res,next)=>{
+    //res.send("second response");
+    next();
+},
+(req, res,next)=>{
+    //res.send("Third response");
+    next();
+}],
+(req, res,next)=>{
+    res.send("Fourth response");
+},
+(req, res,next)=>{
+    res.send("Fifth response");
 });
-
-app.post("/user", (req,res)=>{
-    res.send("Saved Successfully");
-});
-
-app.put("/user", (req,res)=>{
-    res.send("Modified Successfully.");
-});
-
-app.delete("/user", (req,res)=>{
-    res.send("Deleted Successfully");
-});
-
-app.patch("/user", (req,res)=>{
-    res.send("Patched Successfully");
-});
-
-
 
 app.listen('7777',()=>{
     console.log('Server is running on http://localhost:7777');
